@@ -1,0 +1,490 @@
+<%
+function prefix0(number) {
+    var n = "" + number;
+
+    if (n.length == 1)
+        return "0" + number;
+
+    return number;
+}
+
+function showName(receipts, index) {
+    var name = "";
+
+    if (index < receipts.length)
+        name = receipts[index].name;
+
+    return name;
+}
+
+function showDate(receipts, index) {
+    var date = null;
+
+    if (index < receipts.length)
+        date = new Date(receipts[index].date);
+    
+    if (date)
+        return date.getFullYear() + '-' + prefix0(date.getMonth() + 1) + '-' + prefix0(date.getDate());
+    else
+        return "";
+}
+%>
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:x="urn:schemas-microsoft-com:office:excel"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta name=ProgId content=Excel.Sheet>
+<meta name=Generator content="Microsoft Excel 12">
+<link rel=File-List href="야근교통비%20제출양식.files/filelist.xml">
+<style id="야근교통비 제출양식_16222_Styles">
+<!--table
+	{mso-displayed-decimal-separator:"\.";
+	mso-displayed-thousand-separator:"\,";}
+.font516222
+	{color:windowtext;
+	font-size:8.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"맑은 고딕", monospace;
+	mso-font-charset:129;}
+.xl1516222
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"맑은 고딕", monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:general;
+	vertical-align:middle;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:nowrap;}
+.xl6316222
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:20.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"맑은 고딕", monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:general;
+	vertical-align:middle;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:nowrap;}
+.xl6416222
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:700;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"맑은 고딕", monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:general;
+	vertical-align:middle;
+	border:.5pt solid windowtext;
+	background:#F2F2F2;
+	mso-pattern:black none;
+	white-space:nowrap;}
+.xl6516222
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"맑은 고딕", monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:general;
+	vertical-align:middle;
+	border:.5pt solid windowtext;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:nowrap;}
+.xl6616222
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"맑은 고딕", monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:left;
+	vertical-align:middle;
+	border:.5pt solid windowtext;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:nowrap;}
+.xl6716222
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"맑은 고딕", monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:left;
+	vertical-align:middle;
+	border:.5pt solid windowtext;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:nowrap;}
+.xl6816222
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"맑은 고딕", monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border:.5pt solid windowtext;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:nowrap;}
+.xl6916222
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:20.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"맑은 고딕", monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid windowtext;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:nowrap;}
+.xl7016222
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"맑은 고딕", monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid windowtext;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:nowrap;}
+.xl7116222
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:20.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"맑은 고딕", monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:nowrap;}
+ruby
+	{ruby-align:left;}
+rt
+	{color:windowtext;
+	font-size:8.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"맑은 고딕", monospace;
+	mso-font-charset:129;
+	mso-char-type:none;}
+-->
+</style>
+</head>
+
+<body>
+<!--[if !excel]>　　<![endif]-->
+<!--다음 내용은 Microsoft Office Excel의 웹 페이지 마법사를 사용하여 작성되었습니다.-->
+<!--같은 내용의 항목이 다시 게시되면 DIV 태그 사이에 있는 내용이 변경됩니다.-->
+<!----------------------------->
+<!--Excel의 웹 페이지 마법사로 게시해서 나온 결과의 시작 -->
+<!----------------------------->
+
+<div id="야근교통비 제출양식_16222" align=center x:publishsource="Excel">
+
+<table border=0 cellpadding=0 cellspacing=0 width=715 style='border-collapse:
+ collapse;table-layout:fixed;width:538pt'>
+ <col width=13 style='mso-width-source:userset;mso-width-alt:416;width:10pt'>
+ <col width=69 style='mso-width-source:userset;mso-width-alt:2208;width:52pt'>
+ <col width=165 style='mso-width-source:userset;mso-width-alt:5280;width:124pt'>
+ <col width=69 style='mso-width-source:userset;mso-width-alt:2208;width:52pt'>
+ <col width=165 style='mso-width-source:userset;mso-width-alt:5280;width:124pt'>
+ <col width=69 style='mso-width-source:userset;mso-width-alt:2208;width:52pt'>
+ <col width=165 style='mso-width-source:userset;mso-width-alt:5280;width:124pt'>
+ <tr class=xl6316222 height=50 style='mso-height-source:userset;height:37.5pt'>
+  <td height=50 class=xl6316222 width=13 style='height:37.5pt;width:10pt'></td>
+  <td colspan=6 class=xl7116222 width=702 style='width:528pt'>교통비 청구 영수증</td>
+ </tr>
+ <tr class=xl6316222 height=30 style='mso-height-source:userset;height:22.5pt'>
+  <td height=30 class=xl6316222 style='height:22.5pt'></td>
+  <td colspan=6 class=xl6916222>　</td>
+ </tr>
+ <tr height=41 style='mso-height-source:userset;height:30.75pt'>
+  <td height=41 class=xl1516222 style='height:30.75pt'></td>
+  <td class=xl6416222 style='border-top:none'>기간</td>
+  <td class=xl6516222 style='border-top:none;border-left:none'><%= subject %></td>
+  <td class=xl6416222 style='border-top:none;border-left:none'>부서</td>
+  <td class=xl6616222 style='border-top:none;border-left:none'><%= team %></td>
+  <td class=xl6416222 style='border-top:none;border-left:none'>이름</td>
+  <td class=xl6716222 style='border-top:none;border-left:none'><span
+  style='mso-spacerun:yes'><%= name %></span></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+  <td class=xl1516222></td>
+  <td class=xl1516222></td>
+  <td class=xl1516222></td>
+  <td class=xl1516222></td>
+  <td class=xl1516222></td>
+  <td class=xl1516222></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+  <td class=xl6416222>사용자</td>
+  <td class=xl6816222 style='border-left:none'><%= showName(receipts, 0) %><span
+  style='mso-spacerun:yes'>&nbsp;</span></td>
+  <td class=xl6416222 style='border-left:none'>사용자</td>
+  <td class=xl6816222 style='border-left:none'><%= showName(receipts, 1) %><span
+  style='mso-spacerun:yes'>&nbsp;</span></td>
+  <td class=xl6416222 style='border-left:none'>사용자</td>
+  <td class=xl6816222 style='border-left:none'><%= showName(receipts, 2) %><span
+  style='mso-spacerun:yes'>&nbsp;</span></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+  <td class=xl6416222 style='border-top:none'>사용일</td>
+  <td class=xl6816222 style='border-top:none;border-left:none'><%= showDate(receipts, 0) %></td>
+  <td class=xl6416222 style='border-top:none;border-left:none'>사용일</td>
+  <td class=xl6816222 style='border-top:none;border-left:none'><%= showDate(receipts, 1) %></td>
+  <td class=xl6416222 style='border-top:none;border-left:none'>사용일</td>
+  <td class=xl6816222 style='border-top:none;border-left:none'><%= showDate(receipts, 2) %></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+  <td class=xl6416222 style='border-top:none'>사용처</td>
+  <td class=xl6816222 style='border-top:none;border-left:none'>야근 교통비</td>
+  <td class=xl6416222 style='border-top:none;border-left:none'>사용처</td>
+  <td class=xl6816222 style='border-top:none;border-left:none'>야근 교통비</td>
+  <td class=xl6416222 style='border-top:none;border-left:none'>사용처</td>
+  <td class=xl6816222 style='border-top:none;border-left:none'>야근 교통비</td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+  <td colspan=2 rowspan=16 class=xl6516222>　</td>
+  <td colspan=2 rowspan=16 class=xl6516222>　</td>
+  <td colspan=2 rowspan=16 class=xl6516222>　</td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+  <td class=xl6416222 style='border-top:none'>사용자</td>
+  <td class=xl6816222 style='border-top:none;border-left:none'><%= showName(receipts, 3) %><span
+  style='mso-spacerun:yes'>&nbsp;</span></td>
+  <td class=xl6416222 style='border-top:none;border-left:none'>사용자</td>
+  <td class=xl6816222 style='border-top:none;border-left:none'><%= showName(receipts, 4) %><span
+  style='mso-spacerun:yes'>&nbsp;</span></td>
+  <td class=xl6416222 style='border-top:none;border-left:none'>사용자</td>
+  <td class=xl6816222 style='border-top:none;border-left:none'><%= showName(receipts, 5) %><span
+  style='mso-spacerun:yes'>&nbsp;</span></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+  <td class=xl6416222 style='border-top:none'>사용일</td>
+  <td class=xl6816222 style='border-top:none;border-left:none'><%= showDate(receipts, 3) %></td>
+  <td class=xl6416222 style='border-top:none;border-left:none'>사용일</td>
+  <td class=xl6816222 style='border-top:none;border-left:none'><%= showDate(receipts, 4) %>　</td>
+  <td class=xl6416222 style='border-top:none;border-left:none'>사용일</td>
+  <td class=xl6816222 style='border-top:none;border-left:none'><%= showDate(receipts, 5) %>　</td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+  <td class=xl6416222 style='border-top:none'>사용처</td>
+  <td class=xl6816222 style='border-top:none;border-left:none'>야근 교통비</td>
+  <td class=xl6416222 style='border-top:none;border-left:none'>사용처</td>
+  <td class=xl6816222 style='border-top:none;border-left:none'>야근 교통비</td>
+  <td class=xl6416222 style='border-top:none;border-left:none'>사용처</td>
+  <td class=xl6816222 style='border-top:none;border-left:none'>야근 교통비</td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+  <td colspan=2 rowspan=16 class=xl6516222>　</td>
+  <td colspan=2 rowspan=16 class=xl6516222>　</td>
+  <td colspan=2 rowspan=16 class=xl6516222>　</td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl1516222 style='height:16.5pt'></td>
+ </tr>
+ <![if supportMisalignedColumns]>
+ <tr height=0 style='display:none'>
+  <td width=13 style='width:10pt'></td>
+  <td width=69 style='width:52pt'></td>
+  <td width=165 style='width:124pt'></td>
+  <td width=69 style='width:52pt'></td>
+  <td width=165 style='width:124pt'></td>
+  <td width=69 style='width:52pt'></td>
+  <td width=165 style='width:124pt'></td>
+ </tr>
+ <![endif]>
+</table>
+
+</div>
+
+
+<!----------------------------->
+<!--Excel의 웹 페이지 마법사로 게시해서 나온 결과의 끝-->
+<!----------------------------->
+</body>
+
+</html>

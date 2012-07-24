@@ -13,6 +13,11 @@ var sequelize = new Sequelize('database', 'root', '', {
     storage: __dirname + '/data.sqlite'
 });
 
+var Recipe = sequelize.define('Recipe', {
+    team : Sequelize.STRING,
+    subject : Sequelize.STRING
+});
+
 var Receipt = sequelize.define('Receipt', {
     subject : Sequelize.STRING,
     date : Sequelize.DATE,
@@ -21,6 +26,7 @@ var Receipt = sequelize.define('Receipt', {
     price : Sequelize.INTEGER
 });
 
+Recipe.sync();
 Receipt.sync();
 
 var app = express();
@@ -41,48 +47,99 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-function common_index(req) {
+function recipe_index(req) {
     var subject = req.param('subject', '');
     var team = req.param('team', '');
     var name = req.param('name', '');
 
-    return '/' + '?subject=' + subject + '&team=' + team + '&name=' + name;
+    return '/';
 }
 
-app.all('/add', function(req, res) {
+function receipt_index(req) {
+    var subject = req.param('subject', '');
+    var team = req.param('team', '');
+    var name = req.param('name', '');
+
+    return '/recipe/' + encodeURI(team) + '/' + encodeURI(subject) + '?name=' + encodeURI(name);
+}
+
+app.all('/recipe/add', function(req, res) {
+    var subject = req.param('subject');
+    var team = req.param('team');
+
+    var recipe = Recipe.build({
+        subject : subject,
+        team : team
+    });
+
+    recipe.save().success(function() {
+        res.redirect(recipe_index(req));
+    }).error(function() {
+        res.send('save error');
+    })
+});
+
+app.all('/receipt/add', function(req, res) {
     var subject = req.param('subject');
     var team = req.param('team');
     var name = req.param('name');
 
     var receipt = Receipt.build({
         subject : subject,
-        date : req.param('date'),
+        date : new Date(req.param('date')),
         team : team,
         name : name,
         price : req.param('price')
     });
 
     receipt.save().success(function() {
-        res.redirect(common_index(req));
+        res.redirect(receipt_index(req));
     }).error(function() {
         res.send('save error');
     })
 });
 
-app.post('/delete', function(req, res) {
+app.post('/receipt/delete', function(req, res) {
     var id = parseInt(req.param('id'));
     Receipt.find(id).success(function(r) {
         r.destroy();
-        res.redirect(common_index(req));
+        res.redirect(receipt_index(req));
     })
 });
 
-app.get('/', function(req, res) {
+app.get('/receipt/print/:page', function(req, res) {
+    var subject = req.param('subject');
+    var team = req.param('team');
+    var name = req.param('name');
+    var page = req.param('page', 1);
+
+    var query1 = {
+        where: {
+            subject: subject,
+            team: team,
+            name: name
+        },
+        order: 'date ASC',
+        offset: (page-1) * 6,
+        limit: 6
+    };
+
+    Receipt.findAll(query1).success(function(receipts) {
+
+        res.render('print.ejs', {
+            team: team, subject: subject, name:name,
+            receipts: receipts
+        });
+    })
+    
+});
+
+app.get('/recipe/:team/:subject', function(req, res) {
     var w = {};
     var count=0;
     var subject = req.param('subject', null);
     var team = req.param('team', null);
-    var name = req.param('name', null);
+    var name = req.param('name', "");
 
     if (subject && subject.length > 0) {
         w.subject = subject;
@@ -103,10 +160,19 @@ app.get('/', function(req, res) {
                 counts[n]++;
         }
         console.log(counts);
-        res.render('index.ejs', {
+        res.render('recipe.ejs', {
             team: team, subject: subject, name: name,
             receipts: receipts, counts:counts
-        } );
+        });
+    });
+});
+
+app.get('/', function(req, res) {
+    Recipe.findAll({ order: 'updatedAt DESC'}).success(function(recipes) {
+        console.log(recipes);
+        res.render('index.ejs', {
+            recipes: recipes
+        });
     });
 });
 

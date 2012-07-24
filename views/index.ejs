@@ -1,97 +1,48 @@
-<% 
-    function isEmpty(str) {
-        if (str == null) return true;
-        if (str === "") return true;
-
-        return false;
-    }
-
-    var title='영수증';
-    if ( (!isEmpty(team)) && (!isEmpty(subject)) ) {
-        title = "영수증 " + team + " " + subject
-    }
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8" />
-<title><%= title %></title>
+<title>영수증</title>
 </head>
 
 <body>
-    <h1><%= title %></h1>
-    <form id="add" method="post" action="/add">
+    <h1>영수증</h1>
+    <h2>Recipes</h2>
+    <% if (recipes.length <= 0) { %>
+    No recipes
+    <% } else { %>
+    <ul>
+        <% for (var i=0; i<recipes.length; ++i) {
+                var recipe = recipes[i];
+        %>
+            <li>
+                <a href="/recipe/<%= recipe['team'] %>/<%= recipe['subject'] %>"><%= recipe['team'] %> - <%= recipe['subject'] %></a>
+            </li>
+        <% } %>
+    </ul>
+    <% } %>
+    <br/>
+    <h2>Add Recipe</h2>
+    <form id="add" method="post" action="/recipe/add">
         <table>
             <tr>
-                <td>Name</td>
-                <td>Date</td>
-                <td>Price</td>
+                <td>Team</td>
+                <td>기간(Subject)</td>
                 <td></td>
             </tr>
             <tr>
                 <td>
-                    <input type="text" name="name" value="<%= name %>" />
+                    <input type="text" name="team" />
                 </td>
                 <td>
-                    <input type="text" name="date" />
-                </td>
-                <td>
-                    <input type="text" name="price" />
+                    <input type="text" name="subject" />
                 </td>
                 <td>
                     <input type="submit" />
                 </td>
             </tr>
         </table>
-        <% if (!isEmpty(team)) { %>
-        <input type="hidden" name="team" value="<%= team %>" />
-        <% } else { %>
-        Team: <input type="text" name="team" />
-        <% } %>
-        <% if (!isEmpty(subject)) { %>
-        <input type="hidden" name="subject" value="<%= subject %>" />
-        <% } else { %>
-        Subject: <input type="text" name="subject" />
-        <% } %>
     </form>
-    <form id="delete" method="post" action="/delete">
-        <input type="hidden" name="id" value=""/>
-    </form>
-    <script type="text/javascript">
-        function deleteReceipt(id) {
-            if (confirm("Really delete?")) {
-                var f = document.getElementById("delete");
-                f.id.value = id;
-                f.submit();
-            }
-        }
-    </script>
-    <ul>
-        <% for (var key in counts) { %>
-            <li>
-                <%= key %> : <%= counts[key] %>
-            </li>
-        <% } %>
-    </ul>
-    <table border='1'>
-        <tr>
-            <td>Name</td>
-            <td>Date</td>
-            <td>Price</td>
-            <td>Options</td>
-        </tr>
-        <% receipts.forEach(function (receipt) { %>
-        <tr>
-            <td><%= receipt.name %></td>
-            <td><%= receipt.date.getFullYear() %>- <%= (receipt.date.getMonth() + 1) %>-<%= receipt.date.getDate() %></td>
-            <td><%= receipt.price %></td>
-            <td>
-                <a href="javascript:deleteReceipt(<%= receipt.id %>);">delete</a>
-            </td>
-        </tr>
-        <% }) %>
-    </table>
     <p>
 All your receipt are belong to me.
     </p>

@@ -1,0 +1,134 @@
+<% 
+    function isEmpty(str) {
+        if (str == null) return true;
+        if (str === "") return true;
+
+        return false;
+    }
+
+    var title='영수증';
+    if ( (!isEmpty(team)) && (!isEmpty(subject)) ) {
+        title = "영수증 " + team + " " + subject
+    }
+
+    function prefix0(number) {
+        var n = "" + number;
+
+        if (n.length == 1) {
+            return "0" + number;
+        }
+        return number;
+    }
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title><%= title %></title>
+</head>
+<script type="text/javascript">
+
+function focus() {
+    document.getElementById("focusme").focus();
+}
+    
+</script>
+
+<body onload="javascript:focus();">
+
+    <h1><%= title %></h1>
+    <h2>입력</h2>
+    <form id="add" method="post" action="/receipt/add">
+        <table>
+            <tr>
+                <td>Name</td>
+                <td>Date</td>
+                <td>Price</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="name" value="<%= name %>" <% if (name.length <= 0) { %> id="focusme"<% } %> />
+                </td>
+                <td>
+                    <input type="text" name="date" <% if (name.length > 0) { %> id="focusme" <% } %> />
+                </td>
+                <td>
+                    <input type="text" name="price" />
+                </td>
+                <td>
+                    <input type="submit" />
+                </td>
+            </tr>
+        </table>
+        <% if (!isEmpty(team)) { %>
+        <input type="hidden" name="team" value="<%= team %>" />
+        <% } else { %>
+        Team: <input type="text" name="team" />
+        <% } %>
+        <% if (!isEmpty(subject)) { %>
+        <input type="hidden" name="subject" value="<%= subject %>" />
+        <% } else { %>
+        Subject: <input type="text" name="subject" />
+        <% } %>
+    </form>
+    <form id="delete" method="post" action="/receipt/delete">
+        <input type="hidden" name="team" value="<%= team %>"/>
+        <input type="hidden" name="subject" value="<%= subject %>"/>
+        <input type="hidden" name="name" value="<%= name %>"/>
+        <input type="hidden" name="id" value=""/>
+    </form>
+    <script type="text/javascript">
+        function deleteReceipt(id) {
+            if (confirm("Really delete?")) {
+                var f = document.getElementById("delete");
+                f.id.value = id;
+                f.submit();
+            }
+        }
+    </script>
+    <h2>출력물</h2>
+    <ul>
+        <% for (var key in counts) { %>
+            <li>
+                <% var count = counts[key]; %>
+                <%= key %> (<%= count %>) :
+                <%
+                var n = parseInt( (5+count)/6 );
+                for (var i=0; i<n; ++i) {
+                %>
+                <a href="<%= '/receipt/print/' + (i + 1) + '?subject=' + encodeURI(subject) + '&team=' + encodeURI(team) + '&name=' + encodeURI(name) %>">[<%= (i+1) %>]</a>
+                    
+                <%
+                }
+                %>
+            </li>
+        <% } %>
+    </ul>
+    <h2>결과</h2>
+    <table border='1'>
+        <tr>
+            <td>Name</td>
+            <td>Date</td>
+            <td>Price</td>
+            <td>Options</td>
+        </tr>
+        <% receipts.forEach(function (receipt) {
+               var date = new Date(receipt['date']);
+        %>
+        <tr>
+            <td><%= receipt['name'] %></td>
+            <td><%= date.getFullYear() %>-<%= prefix0(date.getMonth() + 1) %>-<%= prefix0(date.getDate()) %></td>
+            <td><%= receipt['price'] %></td>
+            <td>
+                <a href="javascript:deleteReceipt(<%= receipt.id %>);">delete</a>
+            </td>
+        </tr>
+        <% }) %>
+    </table>
+    <p>
+All your receipt are belong to me.
+    </p>
+</body>
+</html>
