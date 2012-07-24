@@ -32,7 +32,7 @@ Receipt.sync();
 var app = express();
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
+  app.set('port', process.env.PORT || 5000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
   app.use(express.favicon());
@@ -125,6 +125,8 @@ app.get('/receipt/print/:page', function(req, res) {
     };
 
     Receipt.findAll(query1).success(function(receipts) {
+
+		console.log(receipts);
 
         res.render('print.ejs', {
             team: team, subject: subject, name:name,

@@ -98,7 +98,7 @@ function focus() {
                 var n = parseInt( (5+count)/6 );
                 for (var i=0; i<n; ++i) {
                 %>
-                <a href="<%= '/receipt/print/' + (i + 1) + '?subject=' + encodeURI(subject) + '&team=' + encodeURI(team) + '&name=' + encodeURI(name) %>">[<%= (i+1) %>]</a>
+                <a href="<%= '/receipt/print/' + (i + 1) + '?subject=' + encodeURI(subject) + '&team=' + encodeURI(team) + '&name=' + encodeURI(key) %>">[<%= (i+1) %>]</a>
                     
                 <%
                 }
