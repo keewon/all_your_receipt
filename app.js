@@ -136,6 +136,22 @@ app.get('/receipt/print/:page', function(req, res) {
     
 });
 
+app.get('/recipe/:team', function(req, res) {
+	var team = req.param('team');
+	var query1 = {
+		where: {
+			team: team
+		},
+		order: 'updatedAt DESC'
+	};
+    Recipe.findAll(query1).success(function(recipes) {
+        console.log(recipes);
+        res.render('index.ejs', {
+            recipes: recipes
+        });
+    });
+});
+
 app.get('/recipe/:team/:subject', function(req, res) {
     var w = {};
     var count=0;
