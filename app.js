@@ -59,8 +59,10 @@ function receipt_index(req) {
     var subject = req.param('subject', '');
     var team = req.param('team', '');
     var name = req.param('name', '');
+    var date = req.param('date', '');
+	date = date.substring(0, 8);
 
-    return '/recipe/' + encodeURI(team) + '/' + encodeURI(subject) + '?name=' + encodeURI(name);
+    return '/recipe/' + encodeURI(team) + '/' + encodeURI(subject) + '?name=' + encodeURI(name) + '&date=' + encodeURI(date);
 }
 
 app.all('/recipe/add', function(req, res) {
@@ -158,11 +160,17 @@ app.get('/recipe/:team/:subject', function(req, res) {
     var subject = req.param('subject', null);
     var team = req.param('team', null);
     var name = req.param('name', "");
+    var date = req.param('date', "");
 
     if (subject && subject.length > 0) {
         w.subject = subject;
         ++count;
     }
+    if (team && team.length > 0) {
+        w.team = team;
+        ++count;
+    }
+	
 
     var query1 = { order: 'updatedAt DESC' };
     if (count > 0)
@@ -179,7 +187,7 @@ app.get('/recipe/:team/:subject', function(req, res) {
         }
         console.log(counts);
         res.render('recipe.ejs', {
-            team: team, subject: subject, name: name,
+            team: team, subject: subject, name: name, date: date,
             receipts: receipts, counts:counts
         });
     });
